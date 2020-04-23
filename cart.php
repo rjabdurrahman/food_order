@@ -1,42 +1,42 @@
 <?php
 session_start();
 error_reporting(0);
-include_once('includes/dbconnection.php');
-if (strlen($_SESSION['fosuid']==0)) {
-  header('location:logout.php');
-  } else{ 
+include_once 'includes/dbconnection.php';
+if (strlen($_SESSION['fosuid'] == 0)) {
+    header('location:logout.php');
+} else {
 //placing order
 
-if(isset($_POST['placeorder'])){
+    if (isset($_POST['placeorder'])) {
 //getting address
-$fnaobno=$_POST['flatbldgnumber'];
-$street=$_POST['streename'];
-$area=$_POST['area'];
-$lndmark=$_POST['landmark'];
-$city=$_POST['city'];
-$userid=$_SESSION['fosuid'];
+        $fnaobno = $_POST['flatbldgnumber'];
+        $street = $_POST['streename'];
+        $area = $_POST['area'];
+        $lndmark = $_POST['landmark'];
+        $city = $_POST['city'];
+        $userid = $_SESSION['fosuid'];
 //genrating order number
-$orderno= mt_rand(100000000, 999999999);
-$query="update tblorders set OrderNumber='$orderno',IsOrderPlaced='1' where UserId='$userid' and IsOrderPlaced is null;";
-$query.="insert into tblorderaddresses(UserId,Ordernumber,Flatnobuldngno,StreetName,Area,Landmark,City) values('$userid','$orderno','$fnaobno','$street','$area','$lndmark','$city');";
+        $orderno = mt_rand(100000000, 999999999);
+        $query = "update tblorders set OrderNumber='$orderno',IsOrderPlaced='1' where UserId='$userid' and IsOrderPlaced is null;";
+        $query .= "insert into tblorderaddresses(UserId,Ordernumber,Flatnobuldngno,StreetName,Area,Landmark,City) values('$userid','$orderno','$fnaobno','$street','$area','$lndmark','$city');";
 
-$result = mysqli_multi_query($con, $query);
-if ($result) {
+        $result = mysqli_multi_query($con, $query);
+        if ($result) {
 
-echo '<script>alert("Your order placed successfully. Order number is "+"'.$orderno.'")</script>';
-echo "<script>window.location.href='my-order.php'</script>";
+            echo '<script>alert("Your order placed successfully. Order number is "+"' . $orderno . '")</script>';
+            echo "<script>window.location.href='my-order.php'</script>";
 
-}
-}   
+        }
+    }
 
 //Code deletion
-if(isset($_GET['delid'])) {
-$rid=$_GET['delid'];
-$query=mysqli_query($con,"delete from tblorders where ID='$rid'");
-echo '<script>alert("Food item deleted")</script>';
-echo "<script>window.location.href='cart.php'</script>";
+    if (isset($_GET['delid'])) {
+        $rid = $_GET['delid'];
+        $query = mysqli_query($con, "delete from tblorders where ID='$rid'");
+        echo '<script>alert("Food item deleted")</script>';
+        echo "<script>window.location.href='cart.php'</script>";
 
-}
+    }
 
     ?>
 <!DOCTYPE html>
@@ -52,7 +52,7 @@ echo "<script>window.location.href='cart.php'</script>";
     <link rel="icon" href="#">
     <title>Food Ordering System</title>
     <link href="css/animsition.min.css" rel="stylesheet">
-<link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
     <link href="css/animate.css" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="css/style.css" rel="stylesheet">
@@ -66,7 +66,7 @@ echo "<script>window.location.href='cart.php'</script>";
         <!--header starts-->
         <header id="header" class="header-scroll top-header headrom">
             <!-- .navbar -->
-            <?php include_once('includes/header.php');?>
+            <?php include_once 'includes/header.php';?>
             <!-- /.navbar -->
         </header>
         <div>
@@ -81,24 +81,23 @@ echo "<script>window.location.href='cart.php'</script>";
                                 </div>
                                 <ul id="food-menu">
                                     <?php
-      
-      $query=mysqli_query($con,"select * from  tblcategory");
-              while($row=mysqli_fetch_array($query))
-              {
-              ?>
+
+    $query = mysqli_query($con, "select * from  tblcategory");
+    while ($row = mysqli_fetch_array($query)) {
+        ?>
 
 
 
                                     <li>
                                         <label class="custom-control custom-checkbox">
                                             <span class="custom-control-description"><a
-                                                    href="viewfood-categorywise.php?catid=<?php echo $row['CategoryName'];?>"><?php echo $row['CategoryName'];?></a></span>
+                                                    href="viewfood-categorywise.php?catid=<?php echo $row['CategoryName']; ?>"><?php echo $row['CategoryName']; ?></a></span>
                                         </label>
                                     </li>
 
 
 
-                                    <?php } ?>
+                                    <?php }?>
                                 </ul>
 
                             </div>
@@ -121,52 +120,56 @@ echo "<script>window.location.href='cart.php'</script>";
                             </div>
                             <div class="order-collapse" id="1">
 
-                                <?php 
-$userid= $_SESSION['fosuid'];
-$query=mysqli_query($con,"select tblorders.ID as frid,tblfood.Image,tblfood.ItemName,tblfood.ItemDes,tblfood.ItemPrice,tblfood.ItemQty,tblorders.FoodId from tblorders join tblfood on tblfood.ID=tblorders.FoodId where tblorders.UserId='$userid' and tblorders.IsOrderPlaced is null");
-$num=mysqli_num_rows($query);
-if($num>0){
-while ($row=mysqli_fetch_array($query)) {
- 
+                                <?php
+$userid = $_SESSION['fosuid'];
+    $query = mysqli_query($con, "select tblorders.ID as frid, tblorders.Quantity as pQty,tblfood.Image,tblfood.ItemName,tblfood.ItemDes,tblfood.ItemPrice,tblfood.ItemQty,tblorders.FoodId from tblorders join tblfood on tblfood.ID=tblorders.FoodId where tblorders.UserId='$userid' and tblorders.IsOrderPlaced is null");
+    $num = mysqli_num_rows($query);
+    if ($num > 0) {
+        while ($row = mysqli_fetch_array($query)) {
 
-?>
+            ?>
 
                                 <div class="order-items">
                                     <div class="order-content">
                                         <div class="rest-logo pull-left">
                                             <a class="restaurant-logo pull-left" href="#"><img
-                                                    src="admin/itemimages/<?php echo $row['Image']?>" width="100"
-                                                    height="80" alt="<?php echo $row['ItemName']?>"></a>
+                                                    src="admin/itemimages/<?php echo $row['Image'] ?>" width="100"
+                                                    height="80" alt="<?php echo $row['ItemName'] ?>"></a>
                                         </div>
                                         <!-- end:Logo -->
                                         <div class="rest-descr">
                                             <h6><a
-                                                    href="food-detail.php?fid=<?php echo $_SESSION['fid']=$row['FoodId'];?>"><?php echo $row['ItemName']?>
-                                                    (<?php echo $row['ItemQty']?>) </a></h6>
-                                            <p> <?php echo $row['ItemDes']?></p>
+                                                    href="food-detail.php?fid=<?php echo $_SESSION['fid'] = $row['FoodId']; ?>"><?php echo $row['ItemName'] ?>
+                                                    (<?php echo $row['ItemQty'] ?>) </a></h6>
+                                            <p> <?php echo $row['ItemDes'] ?></p>
                                         </div>
                                         <!-- end:Description -->
                                     </div>
                                     <!-- end:col -->
-                                    <div class="item-cart-info"> <span class="order-price">Rs.
-                                            <?php echo $total=$row['ItemPrice']?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                            <a href="cart.php?delid=<?php echo $row['frid'];?>"
+                                    <div style="display: flex">
+                                        <button onclick="changeUnitQty(event, 's', <?php echo $row['FoodId'] ?>)">&nbsp;&nbsp;-&nbsp;&nbsp;</button>
+                                        <input type="number" onchange="changeUnitQty('a')" value="<?php echo $row['pQty'] ?>" style="width: 40px; text-align: center">
+                                        <button onclick="changeUnitQty(event, 'a', <?php echo $row['FoodId'] ?>)">&nbsp;+&nbsp;</button>
+                                    </div>
+                                    <div class="item-cart-info">
+                                        <span class="order-price">Rs.
+                                            <?php echo $total = $row['ItemPrice'] ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <a href="cart.php?delid=<?php echo $row['frid']; ?>"
                                                 onclick="return confirm('Do you really want to delete?');" ;><i
-                                                    class="fa fa-trash" aria-hidden="true"
-                                                    title=""></i></a></span>
+                                                    class="fa fa-trash" aria-hidden="true" title=""></i></a></span>
                                     </div>
                                 </div>
                                 <!-- end:row -->
 
-                                <?php 
-$grandtotal+=$total;
-                            } 
+                                <?php
+$grandtotal += $total;
+        }
 
-} else {
+    } else {
 
-    echo "You cart is empty.";
-}
-                            ?>
+        echo "You cart is empty.";
+    }
+    ?>
 
 
                             </div>
@@ -177,7 +180,7 @@ $grandtotal+=$total;
                         <!--/row -->
                     </div>
                     <!-- end:Bar -->
-                    <?php if($num>0){?>
+                    <?php if ($num > 0) {?>
                     <div class="menu order-sidebar">
                         <form method="post">
                             <div>
@@ -215,7 +218,7 @@ $grandtotal+=$total;
                                             <div class="widget-body">
                                                 <div class="price-wrap">
                                                     <p>TOTAL</p>
-                                                    <h3 class="value"><strong><?php echo $grandtotal;?></strong></h3>
+                                                    <h3 class="value"><strong><?php echo $grandtotal; ?></strong></h3>
                                                     <p>Free Shipping</p>
                                                     <button type="submit" name="placeorder"
                                                         class="btn theme-btn btn-lg">Place order</button>
@@ -228,7 +231,7 @@ $grandtotal+=$total;
                             </div>
                         </form>
                     </div>
-                    <?php } ?>
+                    <?php }?>
                     <!-- end:row -->
                 </div>
                 <!-- end:Container -->
@@ -236,7 +239,7 @@ $grandtotal+=$total;
 
             </div>
             <!-- start: FOOTER -->
-            <?php include('includes/footer.php');?>
+            <?php include 'includes/footer.php';?>
             <!-- end:Footer -->
             <!-- end:page wrapper -->
         </div>
@@ -244,10 +247,10 @@ $grandtotal+=$total;
 
         <!-- Bootstrap core JavaScript
     ================================================== -->
- <script src="https://kit.fontawesome.com/bdb42816d8.js" crossorigin="anonymous"></script>
+        <script src="https://kit.fontawesome.com/bdb42816d8.js" crossorigin="anonymous"></script>
         <script src="js/jquery.min.js"></script>
         <!-- font Awesome Icon Script -->
-       
+
         <script src="js/tether.min.js"></script>
 
         <script src="js/animsition.min.js"></script>
@@ -255,7 +258,33 @@ $grandtotal+=$total;
         <script src="js/jquery.isotope.min.js"></script>
         <script src="js/headroom.js"></script>
         <script src="js/foodpicky.min.js"></script>
+        <script>
+        function changeUnitQty(e, p, foodId) {
+            let uId = <?php echo $userid ?>;
+            let qtyEl = event.target;
+            let qty = 0;
+            if(p == 'a') {
+                qty = qtyEl.previousElementSibling.value = parseInt(qtyEl.previousElementSibling.value) + 1;
+                reqUpdate(uId, foodId, qty);
+            }
+            else if(p == 's') {
+                if(parseInt(qtyEl.nextElementSibling.value) >= 2) {
+                    qty = qtyEl.nextElementSibling.value = parseInt(qtyEl.nextElementSibling.value) - 1;
+                    reqUpdate(uId, foodId, qty);
+                }
+            }
+            else {
+                console.log(p);
+            }
+        }
+        function reqUpdate(uId, fId, qty) {
+            fetch(`updateQty.php?uId=${uId}&fId=${fId}&qty=${qty}`)
+            .then(res => res.text())
+            .then(data => console.log(data))
+            .catch(err => alert("Can't Updated the Quantity!"));
+        }
+        </script>
 </body>
 
 </html>
-<?php } ?>
+<?php }?>
