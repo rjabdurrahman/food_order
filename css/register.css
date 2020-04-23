@@ -1,0 +1,102 @@
+.page-wrapper {
+    background-image: url(../images/food_banner.jpg);
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+    z-index: 999;
+}
+
+.page-wrapper::before{
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: 0.4;
+    top: 0;
+    left: 0;
+    z-index: 111;
+}
+
+.main-wrapper{
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    z-index: 99999999;
+}
+
+.form-wrapper{
+    flex-basis: 40%;
+}
+
+.form-wrapper form label{
+    color: var(--font-primary);
+}
+
+.form-wrapper form .form-bind{
+    margin-bottom: 20px;
+}
+
+.form-wrapper form .form-control{
+    background-color: transparent;
+    border: 1px solid var(--bg-secondary);
+    height: 40px;
+    padding: 10px 25px;
+    box-shadow: 1px 2px 1px var(--font-white);
+    width: 100%;
+    padding-left: 55px;
+    color: var(--font-white);
+}
+
+.form-wrapper form .login{
+    color: var(--font-white);
+}
+
+.form-bottom{
+    display: flex;
+    justify-content: space-between;
+}
+
+.form-bind{
+    position: relative;
+}
+
+.form-bind i {
+    position: absolute;
+    top: 10px;
+    left: 15px;
+    color: var(--font-white);
+}
+
+.side-wrapper{
+    flex-basis: 50%;
+    background-color: white;
+    text-align: center;
+    position: relative;
+    z-index: 99999999;
+}
+
+.side-wrapper h4{
+    color: var(--font-primary);
+}
+
+.side-wrapper .section-title{
+    margin-top: 15px;
+    text-align: center;
+    color: var(--font-dark)!important;
+}
+
+.side-wrapper .img-fluid{
+    width: 300px;
+    height: 200px;
+    margin: 0 auto;
+    margin-top: 15px;
+}
+
+footer{
+    position: relative;
+    z-index: 99999999;
+    background-color: white;
+}

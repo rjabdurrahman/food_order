@@ -1,0 +1,138 @@
+section{
+    padding: 0!important;
+}
+
+.menu-wrapper{
+    display: flex;
+}
+
+.page-wrapper {
+    background-image: url(../images/food_banner.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    position: relative;
+}
+
+.page-wrapper::before{
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: black;
+    opacity: 0.4;
+}
+
+.food-item-wrap{
+    background-color: white;
+}
+
+/* ====== side menu styes ====== */
+.side-menu {
+    flex-basis: 20%;
+    background: var(--bg-secondary);
+    position: relative;
+    z-index: 9999999;
+}
+
+.menu-img{
+    width: 200px;
+    height: 200px;
+    border-radius: 100px;
+    box-shadow: 1px 2px 8px rgba(0,0,0,0.5);
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+.menu-img>img{
+    width: 100%;
+    height: 100%;
+    border-radius: 100px;
+}
+
+.input-group{
+    padding: 0 10px;
+}
+
+.input-group input {
+    height: 35px;
+    border: none;
+    outline: none;
+    box-shadow: 1px 2px 3px rgba(0,0,0,0.5);
+    margin-top: 15px;
+    padding: 0 10px;
+    width: 100%;
+}
+
+.sidebar-title h6, i {
+    font-size: 18px;
+    color: var(--font-white);
+}
+
+.sidebar-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 50px;
+    padding: 0 10px;
+}
+
+.categories{
+    list-style-type: none;
+}
+
+.categories li a{
+    font-size: 13px;
+    font-weight: 700;
+    display: block;
+    color: var(--font-white);
+    padding: 10px 15px;
+}
+
+.categories li:hover a{
+    padding-left: 30px;
+    transition: 0.4s all;
+}
+
+/* items styes */
+.items{
+    flex-basis: 80%;
+}
+
+/* paginations */
+
+ul.pagination {
+    list-style-type: none;
+    margin: 0 auto;
+    display: flex;
+    background: white;
+    align-items: center;
+    max-width: 200px;
+    position: relative;
+    z-index: 9999999999;
+}
+
+ul.pagination li a{
+    color: var(--font-primary);
+    font-size: 13px;
+    padding: 10px;
+    border: 1px solid var(--font-primary);
+    display: block;
+}
+
+ul.pagination li:hover>a{
+    background-color: var(--bg-secondary);
+    color: var(--font-white);
+    transition: 0.4s all;
+}
+
+
+
+footer{
+    background-color: white;
+    position: relative;
+    z-index: 9999999;
+}

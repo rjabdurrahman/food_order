@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 412" width="60" height="412">
+	<style>
+		tspan { white-space:pre }
+		.shp0 { fill: #41b883 } 
+	</style>
+	<path id="Background" class="shp0" d="M26.5 6.11L31.5 6.11L31.5 484.11L26.5 484.11L26.5 6.11Z" />
+	<path id="Shape 1" class="shp0" d="M29 43C25.68 43 23 40.32 23 37C23 33.68 25.68 31 29 31C32.32 31 35 33.68 35 37C35 40.32 32.32 43 29 43Z" />
+	<path id="Shape 1 copy" class="shp0" d="M29 192C25.68 192 23 189.32 23 186C23 182.68 25.68 180 29 180C32.32 180 35 182.68 35 186C35 189.32 32.32 192 29 192Z" />
+	<path id="Shape 1 copy 2" class="shp0" d="M29 348C25.68 348 23 345.32 23 342C23 338.68 25.68 336 29 336C32.32 336 35 338.68 35 342C35 345.32 32.32 348 29 348Z" />
+</svg>

@@ -1,0 +1,103 @@
+footer{
+    background-color: white;
+}
+
+.order-row{
+    padding: 100px 0;
+    justify-content: space-between;
+}
+
+.mid-menu {
+    background-color: white;
+    width: 55%;
+}
+
+.menu{
+    width: 20%;
+    padding: 0;
+}
+
+.widget-heading {
+    padding: 10px 9px;
+    background: var(--bg-primary);
+    color: white;
+}
+
+h3.widget-title {
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+h3.widget-title a {
+    color: white;
+    float: right;
+}
+
+.order-content {
+    display: flex;
+    align-items: center;
+    flex-basis: 65%;
+}
+
+.item-cart-info {
+    flex-basis: 25%;
+}
+
+.order-items {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 20px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+}
+
+.order-collapse {
+    padding: 10px 20px;
+    height: 500px;
+    overflow-y: auto;
+}
+
+.rest-descr {
+    margin-left: 10px;
+}
+
+.order-detail-bar {
+    padding: 20px;
+}
+
+.order-detail-bar p {
+    font-size: 15px;
+    margin-bottom: 15px;
+}
+
+.price-wrap {
+    padding: 20px;
+    text-align: center;
+}
+
+.price-wrap .theme-btn a{
+    background: var(--bg-secondary);
+    display: inline-block;
+    padding: 10px 20px;
+    color: white;
+    border: none;
+    box-shadow: 1px 2px 3px rgba(0,0,0,0.5);
+}
+
+.price-wrap p{
+    margin-bottom: 15px;
+}
+
+.rest-descr h6 a {
+    color: var(--font-primary);
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.rest-descr p {
+    font-size: 10px;
+    color: #bbb;
+}
+

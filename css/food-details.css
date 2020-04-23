@@ -1,0 +1,42 @@
+.image-wrap img {
+    border: 10px solid var(--bg-secondary);
+}
+
+.profile-row {
+    display: flex;
+    align-items: center;
+}
+
+.pull-left h6 a {
+    font-size: 18px;
+    color: white;
+}
+
+i.fa.fa-star, i.fa.fa-star-o {
+    color: yellow;
+}
+
+.profile-desc {
+    margin-left: 30px;
+}
+
+ul{list-style-type: none;}
+
+
+.mid-menu {
+    border: 1px solid var(--bg-secondary);
+}
+
+.order-sidebar {
+    flex-basis: 30%;
+}
+
+.price-wrap{
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+.price-wrap form .custom-btn{
+    text-align: center;
+    margin: 0 auto;
+}

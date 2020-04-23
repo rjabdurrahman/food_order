@@ -1,0 +1,34 @@
+.side-wrapper{
+    text-align: left!important;
+}
+
+label{
+    margin-bottom: 10px;
+    display: block;
+}
+
+.side-wrapper h4{
+    color:var(--font-dark)!important;
+}
+
+.form-wrapper form a{
+    color: var(--font-dark);
+    font-size: 13px;
+}
+
+.form-bind i{
+    color: var(--font-dark)!important;
+    top:40px!important;
+}
+
+.side-wrapper p{
+    font-size: 13px;
+}
+
+.side-wrapper p a{
+    color:var(--font-primary);
+}
+
+.login-form input{
+    color: var(--font-dark)!important;
+}

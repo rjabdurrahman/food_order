@@ -1,0 +1,120 @@
+.container {
+    display: flex;
+}
+
+.chat-feature{
+    width: 30%;
+}
+
+.chatlist ul{
+    margin: 0;
+    padding: 0;
+}
+
+.chatlist ul li {
+    list-style-type: none;
+}
+
+.chatlist ul li .username {
+    font-size: 16px;
+    color: #000;
+}
+
+.chatlist ul li .username span{
+    margin-right: 10px;
+}
+
+.chatlist ul li .date span {
+    font-size: 13px;
+    color: #41B883;
+    text-align: right;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.chatlist {
+    border: 1px solid #ddd;
+    padding: 20px 10px;
+    height: 80vh;
+    overflow-y: auto;
+}
+
+
+.inbox-feature {
+    width: 70%;
+    padding: 20px;
+}
+
+.inbox {
+    height: 400px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    padding: 20px;
+}
+
+.inbox-footer {
+    margin-top: 10px;
+    border: 1px solid #ddd;
+}
+
+.chat-typing input {
+    border: navajowhite;
+    width: 93%;
+    height: 40px;
+    padding: 0 10px;
+}
+
+button#send {
+    border: none;
+    background: transparent;
+    color: #10a2ef;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+
+.msg-text-session{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.msg-text{
+    display: flex;
+    justify-content: flex-start;
+}
+
+.msg-content .date span{
+    font-size: 13px;
+    color: #bbb;
+}
+
+.msg-text .text{
+    background-color: #ddd;
+    padding: 5px;
+}
+
+
+.msg-text-session .text{
+    background-color: #10a2ef;
+    padding: 5px;
+    color: white;
+}
+
+.msg-content .date{
+    margin: 0!important;
+}
+
+.msg-content .text{
+    margin: 0!important;
+    text-align: justify!important;
+    border-radius:5px!important;
+    padding: 10px;
+}
+
+.msg-text-session, .msg-text{
+    margin-bottom: 10px;
+}
+
+.msg-content{
+    width: 300px;
+}
