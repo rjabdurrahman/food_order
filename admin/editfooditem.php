@@ -1,35 +1,44 @@
 <?php
 session_start();
 error_reporting(0);
-include('includes/dbconnection.php');
-if (strlen($_SESSION['fosaid']==0)) {
-  header('location:logout.php');
-  } else{
+include 'includes/dbconnection.php';
+if (strlen($_SESSION['fosaid'] == 0)) {
+    header('location:logout.php');
+} else {
 
-if(isset($_POST['submit']))
-  {
-    $faid=$_SESSION['fosaid'];
-     $cid=$_GET['editid'];
-    $fcat=$_POST['foodcategory'];
-    $itemname=$_POST['itemname'];
-    $description=$_POST['description'];
-    $quantity=$_POST['quantity'];
-    $price=$_POST['price'];
-    
-   $itempic=$_FILES["itemimages"]["name"];
-    $query=mysqli_query($con, "update tblfood set CategoryName='$fcat',ItemName='$itemname',ItemPrice='$price',ItemDes='$description',ItemQty='$quantity' where ID='$cid'" );
-    if ($query) {
-    $msg="Food Item has been Updated.";
-  }
-  else
-    {
-      $msg="Something Went Wrong. Please try again";
+    if (isset($_POST['submit'])) {
+        $faid = $_SESSION['fosaid'];
+        $cid = $_GET['editid'];
+        $fcat = $_POST['foodcategory'];
+        $itemname = $_POST['itemname'];
+        $description = $_POST['description'];
+        $quantity = $_POST['quantity'];
+        $price = $_POST['price'];
+
+        $itempic = $_FILES["itemimages"]["name"];
+        $query = mysqli_query($con, "update tblfood set CategoryName='$fcat',ItemName='$itemname',ItemPrice='$price',ItemDes='$description',ItemQty='$quantity' where ID='$cid'");
+        if ($query) {
+            $msg = "Food Item has been Updated.";
+        } else {
+            $msg = "Something Went Wrong. Please try again";
+        }
+
     }
 
-  
+    else if(isset($_POST['submitDelItem'])){
+        $cid = $_GET['editid'];
+        $query = mysqli_query($con,"DELETE FROM tblfood WHERE id=$cid");
+        if ($query) {
+            $msg = "Food Item has been Deleted.";
+        } else {
+            $msg = "Something Went Wrong. Please try again";
+        }
+        header('Location: http://localhost/food_order/admin/manage-fooditems.php');
+    }
+
+
 }
-}
-  ?>
+?>
 <!DOCTYPE html>
 <html>
 
@@ -55,10 +64,10 @@ if(isset($_POST['submit']))
 
     <div id="wrapper">
 
-        <?php include_once('includes/leftbar.php');?>
+        <?php include_once 'includes/leftbar.php';?>
 
         <div id="page-wrapper" class="gray-bg">
-            <?php include_once('includes/header.php');?>
+            <?php include_once 'includes/header.php';?>
             <div class="row border-bottom">
 
             </div>
@@ -88,23 +97,23 @@ if(isset($_POST['submit']))
 
 
                                 <?php
- $cid=$_GET['editid'];
-$ret=mysqli_query($con,"select * from tblfood where ID='$cid'");
-$cnt=1;
-while ($row=mysqli_fetch_array($ret)) {
+$cid = $_GET['editid'];
+$ret = mysqli_query($con, "select * from tblfood where ID='$cid'");
+$cnt = 1;
+while ($row = mysqli_fetch_array($ret)) {
 
-?>
+    ?>
 
                                 <form id="submit" action="#" class="wizard-big" method="post" name="submit">
-                                    <p style="font-size:16px; color:red;"> <?php if($msg){
-    echo $msg;
-  }  ?> </p>
+                                    <p style="font-size:16px; color:red;"> <?php if ($msg) {
+        echo $msg;
+    }?> </p>
                                     <fieldset>
                                         <div class="form-group row"><label class="col-sm-2 col-form-label">Food
                                                 Category:</label>
                                             <div class="col-sm-10"><input name='foodcategory' id="foodcategory"
                                                     class="form-control white_bg"
-                                                    value="<?php  echo $row['CategoryName'];?>">
+                                                    value="<?php echo $row['CategoryName']; ?>">
 
 
                                             </div>
@@ -112,31 +121,31 @@ while ($row=mysqli_fetch_array($ret)) {
                                         <div class="form-group row"><label class="col-sm-2 col-form-label">Item
                                                 Name:</label>
                                             <div class="col-sm-10"><input type="text" class="form-control"
-                                                    name="itemname" value="<?php  echo $row['ItemName'];?>"></div>
+                                                    name="itemname" value="<?php echo $row['ItemName']; ?>"></div>
                                         </div>
 
                                         <div class="form-group row"><label
                                                 class="col-sm-2 col-form-label">Description:</label>
                                             <div class="col-sm-10">
                                                 <input type="text" class="form-control" name="description"
-                                                    value="<?php  echo $row['ItemDes'];?>">
+                                                    value="<?php echo $row['ItemDes']; ?>">
                                             </div>
                                         </div>
                                         <div class="form-group row"><label class="col-sm-2 col-form-label">Image</label>
-                                            <div class="col-sm-10"><img src="itemimages/<?php echo $row['Image'];?>"
-                                                    width="200" height="150" value="<?php  echo $row['Image'];?>"><a
-                                                    href="changeimage.php?editid=<?php echo $row['ID'];?>">Edit
+                                            <div class="col-sm-10"><img src="itemimages/<?php echo $row['Image']; ?>"
+                                                    width="200" height="150" value="<?php echo $row['Image']; ?>"><a
+                                                    href="changeimage.php?editid=<?php echo $row['ID']; ?>">Edit
                                                     Image</a> </div>
                                         </div>
                                         <div class="form-group row"><label
                                                 class="col-sm-2 col-form-label">Qyantity:</label>
                                             <div class="col-sm-10"><input type="text" class="form-control"
-                                                    name="quantity" value="<?php  echo $row['ItemQty'];?>"></div>
+                                                    name="quantity" value="<?php echo $row['ItemQty']; ?>"></div>
                                         </div>
                                         <div class="form-group row"><label
                                                 class="col-sm-2 col-form-label">Price:</label>
                                             <div class="col-sm-10"><input type="text" class="form-control" name="price"
-                                                    value="<?php  echo $row['ItemPrice'];?>"></div>
+                                                    value="<?php echo $row['ItemPrice']; ?>"></div>
                                         </div>
 
                                     </fieldset>
@@ -148,17 +157,18 @@ while ($row=mysqli_fetch_array($ret)) {
 
                                     <p style="text-align: center;"><button type="submit" name="submit"
                                             class="btn btn-primary">Update</button></p>
-
-
-
+                                            <p style="text-align: center;"><button type="submit" name="submitDelItem"
+                                        class="btn btn-primary">Delete</button></p>
                                 </form>
+                                
+                                
                             </div>
                         </div>
                     </div>
 
                 </div>
             </div>
-            <?php include_once('includes/footer.php');?>
+            <?php include_once 'includes/footer.php';?>
 
         </div>
     </div>
@@ -257,4 +267,4 @@ while ($row=mysqli_fetch_array($ret)) {
 </body>
 
 </html>
-<?php } ?>
+<?php }?>
