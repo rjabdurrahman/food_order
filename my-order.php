@@ -109,7 +109,7 @@ $uid=$_SESSION['fosuid'];
                                         <!-- end:Logo -->
                                         <div class="entry-dscr">
                                             <h5><a href="order-details.php?orderid=<?php echo $row['Ordernumber'];?>">Order
-                                                    # <?php echo $row['Ordernumber'];?></a></h5>
+                                                    # <?php echo $row['Ordernumber'];?></a>&nbsp;<span style="color: <?php echo $row['Payment'] != '' ? "blue":"gray"; ?>">(<?php echo $row['Payment'] != '' ? "Paid":"Not Paid"; ?>)</h5>
                                             <p><b>Order Date :</b> <?php echo $row['OrderTime']?></p>
                                             <ul class="list-inline">
                                                 <li class="list-inline-item"><i class="fa fa-check"></i>

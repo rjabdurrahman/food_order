@@ -103,7 +103,7 @@ if (strlen($_SESSION['fosuid']==0)) {
                                     <?php 
 $userid= $_SESSION['fosuid'];
 $oid=$_GET['orderid'];
-$query=mysqli_query($con,"select tblfood.Image,tblfood.ItemName,tblfood.ItemDes,tblfood.ItemPrice,tblfood.ItemQty,tblorders.FoodId from tblorders join tblfood on tblfood.ID=tblorders.FoodId where tblorders.UserId='$userid' and tblorders.IsOrderPlaced=1 and tblorders.OrderNumber='$oid'");
+$query=mysqli_query($con,"select tblfood.Image,tblfood.ItemName,tblfood.ItemDes,tblfood.ItemPrice,tblfood.ItemQty,tblorders.Quantity,tblorders.FoodId from tblorders join tblfood on tblfood.ID=tblorders.FoodId where tblorders.UserId='$userid' and tblorders.IsOrderPlaced=1 and tblorders.OrderNumber='$oid'");
 $num=mysqli_num_rows($query);
 while ($row=mysqli_fetch_array($query)) {
 ?>
@@ -125,8 +125,8 @@ while ($row=mysqli_fetch_array($query)) {
                                             <!-- end:Description -->
                                         </div>
                                         <!-- end:col -->
-                                        <div class="item-cart-info"> <span class="order-price">Rs.
-                                                <?php echo $total=$row['ItemPrice']?></span></div>
+                                        <div class="item-cart-info" style="flex-basis: 40%;"> <span class="order-price"><?php echo $total=$row['ItemPrice'] . ' X ' . $row['Quantity']?> = Rs.
+                                                <?php echo $total=$row['ItemPrice'] * $row['Quantity']?></span></div>
                                     </div>
                                     <!-- end:row -->
 
@@ -171,8 +171,7 @@ while($row=mysqli_fetch_array($query))
                                                 <p><b>Area :</b> <?php echo $row['Area']?></p>
                                                 <p><b>Landmark :</b> <?php echo $row['Landmark']?></p>
                                                 <p><b>City :</b> <?php echo $row['City']?></p>
-
-
+                                                <p><b>Payment Status :</b> <?php echo $row['Payment'] != '' ? "Paid":"Not Paid"; ?></p>
                                             </div>
                                         </div>
                                     </div>
