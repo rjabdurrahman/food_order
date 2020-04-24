@@ -237,7 +237,7 @@ $grandtotal += $total;
                                             <div class="widget-body">
                                                 <div class="price-wrap">
                                                     <p>TOTAL</p>
-                                                    <h3 class="value"><strong><?php echo $grandtotal; ?></strong></h3>
+                                                    <h3 id="grantTot" class="value"><strong><?php echo $grandtotal; ?></strong></h3>
                                                     <p>Free Shipping</p>
                                                     <button type="submit" name="placeorder"
                                                         class="btn theme-btn btn-lg">Place order</button>
@@ -301,6 +301,12 @@ $grandtotal += $total;
                 priceEl.textContent = `Rs. ${unitPrice * qty}`
                 reqUpdate(uId, foodId, qty);
             }
+            let grandT = 0
+            for(i = 0; i < $('.order-price').length; i++) {
+                let v = parseInt($('.order-price')[i].textContent.replace(/[^0-9]/g, ''));
+                grandT += v;
+            }
+            $('#grantTot').text(grandT);
         }
         function reqUpdate(uId, fId, qty) {
             fetch(`updateQty.php?uId=${uId}&fId=${fId}&qty=${qty}`)

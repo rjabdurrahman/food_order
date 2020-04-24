@@ -148,6 +148,24 @@ while ($row=mysqli_fetch_array($ret)) {
                         <td><?php  echo $row['OrderTime'];?></td>
                       </tr>
                       <tr>
+                        <th style="text-align: center" colspan="2">Payment Details <span style="color: <?php echo $row['Payment'] != '' ? "blue":"red"; ?>">(<?php echo $row['Payment'] != '' ? "Paid":"Not Paid"; ?>)</span></th>
+                      </tr>
+<?php
+if($row['Payment'] != '') {
+  $mobileNo = explode("/", $row['Payment'])[0];
+  $trxId = explode("/", $row['Payment'])[1];
+  echo <<<line
+                      <tr>
+                        <th>Mobile</th>
+                        <td>{$mobileNo}</td>
+                      </tr>
+                      <tr>
+                        <th>TrxId</th>
+                        <td>{$trxId}</td>
+                      </tr>
+line;
+}?>
+                      <tr>
                         <th>Order Final Status</th>
                         <td> <?php  
     $orserstatus=$row['OrderFinalStatus'];
@@ -184,12 +202,12 @@ if($row['OrderFinalStatus']=="Order Cancelled")
                   </div>
                   <div class="col-6" style="margin-top:2%">
                     <?php  
-$query=mysqli_query($con,"select tblfood.Image,tblfood.ItemName,tblfood.ItemDes,tblfood.ItemPrice,tblfood.ItemQty,tblorders.FoodId from tblorders join tblfood on tblfood.ID=tblorders.FoodId where tblorders.IsOrderPlaced=1 and tblorders.OrderNumber='$oid'");
+$query=mysqli_query($con,"select tblfood.Image,tblfood.ItemName,tblfood.ItemDes,tblfood.ItemPrice,tblfood.ItemQty,tblorders.FoodId, tblorders.Quantity from tblorders join tblfood on tblfood.ID=tblorders.FoodId where tblorders.IsOrderPlaced=1 and tblorders.OrderNumber='$oid'");
 $num=mysqli_num_rows($query);
 $cnt=1;?>
                     <table border="1" class="table table-bordered mg-b-0">
                       <tr align="center">
-                        <td colspan="4" style="font-size:20px;color:blue">
+                        <td colspan="5" style="font-size:20px;color:blue">
                           Order Details</td>
                       </tr>
 
@@ -197,6 +215,7 @@ $cnt=1;?>
                         <th>#</th>
                         <th>Food </th>
                         <th>Food Name</th>
+                        <th>Quantity</th>
                         <th>Price</th>
                       </tr>
                       <?php  
@@ -207,13 +226,14 @@ while ($row1=mysqli_fetch_array($query)) {
                         <td><img src="itemimages/<?php echo $row1['Image']?>" width="60" height="40"
                             alt="<?php echo $row['ItemName']?>"></td>
                         <td><?php  echo $row1['ItemName'];?></td>
-                        <td><?php  echo $total=$row1['ItemPrice'];?></td>
+                        <td><?php  echo $row1['Quantity'];?></td>
+                        <td><?php  echo $total=$row1['ItemPrice'] * $row1['Quantity'];?></td>
                       </tr>
                       <?php 
 $grandtotal+=$total;
 $cnt=$cnt+1;} ?>
                       <tr>
-                        <th colspan="3" style="text-align:center">Grand Total </th>
+                        <th colspan="4" style="text-align:center">Grand Total </th>
                         <td><?php  echo $grandtotal;?></td>
                       </tr>
 
