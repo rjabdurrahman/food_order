@@ -1,8 +1,8 @@
-footer{
+footer {
     background-color: white;
 }
 
-.order-row{
+.order-row {
     padding: 100px 0;
     justify-content: space-between;
 }
@@ -12,7 +12,7 @@ footer{
     width: 55%;
 }
 
-.menu{
+.menu {
     width: 20%;
     padding: 0;
 }
@@ -37,11 +37,12 @@ h3.widget-title a {
 .order-content {
     display: flex;
     align-items: center;
-    flex-basis: 65%;
+    flex-basis: 70%;
 }
 
 .item-cart-info {
-    flex-basis: 25%;
+    flex-basis: 22%;
+    text-align: right;
 }
 
 .order-items {
@@ -77,16 +78,16 @@ h3.widget-title a {
     text-align: center;
 }
 
-.price-wrap .theme-btn a{
+.price-wrap .theme-btn a {
     background: var(--bg-secondary);
     display: inline-block;
     padding: 10px 20px;
     color: white;
     border: none;
-    box-shadow: 1px 2px 3px rgba(0,0,0,0.5);
+    box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.5);
 }
 
-.price-wrap p{
+.price-wrap p {
     margin-bottom: 15px;
 }
 
@@ -100,4 +101,3 @@ h3.widget-title a {
     font-size: 10px;
     color: #bbb;
 }
-

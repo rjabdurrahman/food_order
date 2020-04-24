@@ -59,6 +59,26 @@ if (strlen($_SESSION['fosuid'] == 0)) {
     <link href="css/order.css" rel="stylesheet">
     <link href="css/order-detail.css" rel="stylesheet">
     <link href="css/cart.css" rel="stylesheet">
+    <style>
+    .qty {
+        display: flex;
+        margin-left: 8px;
+        margin-right: 8px;
+    }
+    .qty button {
+        background: var(--bg-secondary);
+        outline: none;
+        border: none;
+        font-weight: bold;
+        font-size: 20px;
+        color: white;
+    }
+    .qty input {
+        width: 28px;
+        text-align: center;
+        outline: none;
+    }
+    </style>
 </head>
 
 <body>
@@ -146,17 +166,16 @@ $userid = $_SESSION['fosuid'];
                                         <!-- end:Description -->
                                     </div>
                                     <!-- end:col -->
-                                    <div style="display: flex">
-                                        <button onclick="changeUnitQty(event, 's', <?php echo $row['FoodId'] ?>)">&nbsp;&nbsp;-&nbsp;&nbsp;</button>
-                                        <input type="number" onchange="changeUnitQty('a')" value="<?php echo $row['pQty'] ?>" style="width: 40px; text-align: center">
-                                        <button onclick="changeUnitQty(event, 'a', <?php echo $row['FoodId'] ?>)">&nbsp;+&nbsp;</button>
+                                    <div class="qty">
+                                        <button onclick="changeUnitQty(event, 's', <?php echo $row['FoodId'] ?>, <?php echo $total = $row['ItemPrice'] ?>)">&nbsp;&nbsp;-&nbsp;&nbsp;</button>
+                                        <input type="text" oninput="changeUnitQty(event, 't', <?php echo $row['FoodId'] ?>, <?php echo $total = $row['ItemPrice'] ?>)" value="<?php echo $row['pQty'] ?>">
+                                        <button onclick="changeUnitQty(event, 'a', <?php echo $row['FoodId'] ?>, <?php echo $total = $row['ItemPrice'] ?>)">&nbsp;+&nbsp;</button>
                                     </div>
                                     <div class="item-cart-info">
-                                        <span class="order-price">Rs.
-                                            <?php echo $total = $row['ItemPrice'] ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                            <a href="cart.php?delid=<?php echo $row['frid']; ?>"
-                                                onclick="return confirm('Do you really want to delete?');" ;><i
-                                                    class="fa fa-trash" aria-hidden="true" title=""></i></a></span>
+                                        <span class="order-price">Rs.<?php echo $total = $row['ItemPrice'] * $row['pQty'] ?>&nbsp;</span>
+                                        <a style="margin-left: 10px;" href="cart.php?delid=<?php echo $row['frid']; ?>"
+                                                onclick="return confirm('Do you really want to delete?');"><i
+                                                    class="fa fa-trash" style="color: red;" aria-hidden="true" title=""></i></a>
                                     </div>
                                 </div>
                                 <!-- end:row -->
@@ -259,22 +278,28 @@ $grandtotal += $total;
         <script src="js/headroom.js"></script>
         <script src="js/foodpicky.min.js"></script>
         <script>
-        function changeUnitQty(e, p, foodId) {
+        function changeUnitQty(e, p, foodId, unitPrice) {
             let uId = <?php echo $userid ?>;
             let qtyEl = event.target;
             let qty = 0;
+            let priceEl = qtyEl.parentElement.nextElementSibling.firstElementChild;
             if(p == 'a') {
                 qty = qtyEl.previousElementSibling.value = parseInt(qtyEl.previousElementSibling.value) + 1;
+                priceEl.textContent = `Rs. ${unitPrice * qty}`
                 reqUpdate(uId, foodId, qty);
             }
             else if(p == 's') {
                 if(parseInt(qtyEl.nextElementSibling.value) >= 2) {
                     qty = qtyEl.nextElementSibling.value = parseInt(qtyEl.nextElementSibling.value) - 1;
+                    priceEl.textContent = `Rs. ${unitPrice * qty}`
                     reqUpdate(uId, foodId, qty);
                 }
             }
             else {
-                console.log(p);
+                console.log(e.target)
+                qty = parseInt(e.target.value);
+                priceEl.textContent = `Rs. ${unitPrice * qty}`
+                reqUpdate(uId, foodId, qty);
             }
         }
         function reqUpdate(uId, fId, qty) {
