@@ -148,10 +148,10 @@ while ($row=mysqli_fetch_array($ret)) {
                         <td><?php  echo $row['OrderTime'];?></td>
                       </tr>
                       <tr>
-                        <th style="text-align: center" colspan="2">Payment Details <span style="color: <?php echo $row['Payment'] != '' ? "blue":"red"; ?>">(<?php echo $row['Payment'] != '' ? "Paid":"Not Paid"; ?>)</span></th>
+                        <th style="text-align: center" colspan="2">Payment Details <span style="color: <?php echo $row['Payment'] != '' ? "blue":"red"; ?>">(<?php echo $row['Payment'] != '' ? ($row['Payment'] == 'COD' ? "Cash On Delivery" : "Paid") :"Not Paid"; ?>)</span></th>
                       </tr>
 <?php
-if($row['Payment'] != '') {
+if($row['Payment'] != "COD" && $row['Payment'] != '') {
   $mobileNo = explode("/", $row['Payment'])[0];
   $trxId = explode("/", $row['Payment'])[1];
   echo <<<line

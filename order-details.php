@@ -171,7 +171,7 @@ while($row=mysqli_fetch_array($query))
                                                 <p><b>Area :</b> <?php echo $row['Area']?></p>
                                                 <p><b>Landmark :</b> <?php echo $row['Landmark']?></p>
                                                 <p><b>City :</b> <?php echo $row['City']?></p>
-                                                <p><b>Payment Status :</b> <?php echo $row['Payment'] != '' ? "Paid":"Not Paid"; ?></p>
+                                                <p><b>Payment Status :</b> <?php echo $row['Payment'] != '' ? ($row['Payment'] == 'COD' ? "Cash On Delivery" : "Paid") :"Not Paid"; ?></p>
                                             </div>
                                         </div>
                                     </div>

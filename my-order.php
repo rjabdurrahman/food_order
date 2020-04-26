@@ -24,17 +24,17 @@ if (strlen($_SESSION['fosuid']==0)) {
     <link href="css/style.css" rel="stylesheet">
     <link href="css/order.css" rel="stylesheet">
     <script language="javascript" type="text/javascript">
-        var popUpWin = 0;
+    var popUpWin = 0;
 
-        function popUpWindow(URLStr, left, top, width, height) {
-            if (popUpWin) {
-                if (!popUpWin.closed) popUpWin.close();
-            }
-            popUpWin = open(URLStr, 'popUpWin',
-                'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=no,copyhistory=yes,width=' +
-                600 + ',height=' + 600 + ',left=' + left + ', top=' + top + ',screenX=' + left + ',screenY=' + top +
-                '');
+    function popUpWindow(URLStr, left, top, width, height) {
+        if (popUpWin) {
+            if (!popUpWin.closed) popUpWin.close();
         }
+        popUpWin = open(URLStr, 'popUpWin',
+            'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=no,copyhistory=yes,width=' +
+            600 + ',height=' + 600 + ',left=' + left + ', top=' + top + ',screenX=' + left + ',screenY=' + top +
+            '');
+    }
     </script>
 </head>
 
@@ -59,14 +59,14 @@ if (strlen($_SESSION['fosuid']==0)) {
                                         <h6>Food Category</h6> <i class="fa fa-cutlery pull-right"></i>
                                     </div>
                                     <ul id="food-menu">
-                                    <?php
+                                        <?php
       
       $query=mysqli_query($con,"select * from  tblcategory");
               while($row=mysqli_fetch_array($query))
               {
               ?>
 
-                                    
+
 
                                         <li>
                                             <label class="custom-control custom-checkbox">
@@ -76,8 +76,8 @@ if (strlen($_SESSION['fosuid']==0)) {
                                         </li>
 
 
-                                    
-                                    <?php } ?>
+
+                                        <?php } ?>
                                     </ul>
                                 </div>
                                 <!-- end:Sidebar nav -->
@@ -109,7 +109,9 @@ $uid=$_SESSION['fosuid'];
                                         <!-- end:Logo -->
                                         <div class="entry-dscr">
                                             <h5><a href="order-details.php?orderid=<?php echo $row['Ordernumber'];?>">Order
-                                                    # <?php echo $row['Ordernumber'];?></a>&nbsp;<span style="color: <?php echo $row['Payment'] != '' ? "blue":"gray"; ?>">(<?php echo $row['Payment'] != '' ? "Paid":"Not Paid"; ?>)</h5>
+                                                    # <?php echo $row['Ordernumber'];?></a>&nbsp;<span
+                                                    style="color: <?php echo $row['Payment'] != '' ? "blue":"gray"; ?>">(<?php echo $row['Payment'] != '' ? ($row['Payment'] == 'COD' ? "Cash On Delivery" : "Paid") :"Not Paid"; ?>)
+                                            </h5>
                                             <p><b>Order Date :</b> <?php echo $row['OrderTime']?></p>
                                             <ul class="list-inline">
                                                 <li class="list-inline-item"><i class="fa fa-check"></i>
@@ -136,11 +138,13 @@ $link .= $_SERVER['HTTP_HOST'];
                                         <!-- end:Entry description -->
                                     </div>
                                     <div class="order-view">
-                                        <div class="right-content bg-white">
-                                            <div class="right-review">
-
-                                                <a href="order-details.php?orderid=<?php echo $row['Ordernumber'];?>"
-                                                    class="btn theme-btn-dash">View Details</a> </div>
+                                        <div style="margin-left: 60px;" class="right-review">
+                                            <a style="margin-bottom: 6px;"
+                                                href="order-details.php?orderid=<?php echo $row['Ordernumber'];?>"
+                                                class="btn theme-btn-dash">View Details</a>
+                                            <a style="visibility: <?php echo $row['Payment'] == '' ? "visible":"hidden"; ?>;"
+                                                href="payment.php?orderid=<?php echo $row['Ordernumber'];?>"
+                                                class="btn theme-btn-dash">Pay Now</a>
                                         </div>
                                         <!-- end:right info -->
                                     </div>
